@@ -30,5 +30,8 @@ dilated = cv.dilate(canny, (3,3), iterations=1)
 erode = cv.erode(canny, (3,3), iterations=1)
 #cv.imshow('Dilate', erode)
 
+# cropping
+cropped = img[50:200, 200:400]
+#cv.imshow('Dilate', cropped)
 
 cv.waitKey(0)
