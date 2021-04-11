@@ -1,0 +1,6 @@
+
+pip install opencv-contrib-python
+pip install caer
+
+# RUN de examples
+python xxx.py
