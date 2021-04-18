@@ -8,18 +8,18 @@ while (True):
   # by frame
   ret, frame = vid.read()
   gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
-  blur = cv.GaussianBlur(frame, (5,5), 0)
   canny = cv.Canny(frame, 100, 175)
+  hsv = cv.cvtColor(frame, cv.COLOR_BGR2HSV)
 
   cv.imshow('Video', frame)
   cv.imshow('Video Gray', gray)
-  cv.imshow('Video Blur', blur)
   cv.imshow('Video Canny', canny)
+  cv.imshow('Video Hsv', hsv)
 
   if cv.waitKey(0) & 0xFF == ord('q'):
-    break
+      break
 
 # After the loop release the cap object
 vid.release()
 # Destroy all the windows
-cv2.destroyAllWindows()
+cv.destroyAllWindows()

@@ -2,5 +2,7 @@
 pip install opencv-contrib-python
 pip install caer
 
+python -m pip install -U matplotlib
+
 # RUN de examples
 python xxx.py
