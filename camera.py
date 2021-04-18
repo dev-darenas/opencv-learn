@@ -11,10 +11,18 @@ while (True):
   canny = cv.Canny(frame, 100, 175)
   hsv = cv.cvtColor(frame, cv.COLOR_BGR2HSV)
 
+  haar_cascade = cv.CascadeClassifier('face_detection/haar_face.xml')
+  faces_rect = haar_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=3)
+
   cv.imshow('Video', frame)
-  cv.imshow('Video Gray', gray)
+  # cv.imshow('Video Gray', gray)
   cv.imshow('Video Canny', canny)
   cv.imshow('Video Hsv', hsv)
+
+  for (x,y,w,h) in faces_rect:
+      cv.rectangle(frame, (x,y), (x+w,y+h), (0,255,0), thickness=2)
+
+  cv.imshow('Detected Faces', frame)
 
   if cv.waitKey(0) & 0xFF == ord('q'):
       break
