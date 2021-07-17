@@ -1,0 +1,5 @@
+First you need to train the machine 
+
+- Save you phono on de folder /photos/train_photo/your_name
+- Run python faces_train
+- now you can run the script to recognize your face run python face_recognition
