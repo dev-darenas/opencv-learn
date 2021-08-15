@@ -13,9 +13,12 @@ def getNewPoints(mask, color):
       x = int(M["m10"]/M["m00"])
       y = int(M["m01"]/M["m00"])
 
-      cv2.circle(whiteboard, (x, y), int(area/1000) + 4, color, -1)
+      cv2.circle(whiteboard, (x, y), 5, color, -1)
       font = cv2.FONT_HERSHEY_SIMPLEX
-      # cv2.putText(whiteboard, '{},{} Areas: {}'.format(x, y, area), (x+10, y), font, 0.75, color, 1, cv2.LINE_AA)
+      print('{},{} Areas: {}'.format(x, y, area))
+
+      cv2.putText(frame, '{},{} Areas: {}'.format(x, y, area), (x+10, y), font, 0.75, color, 1, cv2.LINE_AA)
+
 
 def create_whiteboard(width, height, rgb_color=(0, 0, 0)):
     """Create new image(numpy array) filled with certain color in RGB"""
@@ -37,7 +40,7 @@ upper_red_1 = np.array([5, 255, 255])
 lower_red_2 = np.array([175, 100, 20])
 upper_red_2 = np.array([180, 255, 255])
 
-lower_blue = np.array([115, 100, 20])
+lower_blue = np.array([118, 100, 20])
 upper_blue = np.array([125, 255, 255])
 
 lower_yellow = np.array([25, 100, 20])
@@ -53,15 +56,13 @@ while True:
 
   hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
-  mask_red_low = cv2.inRange(hsv, lower_red_1, upper_red_1)
+  # mask_red_low = cv2.inRange(hsv, lower_red_1, upper_red_1)
   mask_red_upper = cv2.inRange(hsv, lower_red_2, upper_red_2)
-  red_mask = cv2.add(mask_red_low, mask_red_upper)
+  # red_mask = cv2.add(mask_red_low, mask_red_upper)
 
+  red_mask = cv2.inRange(hsv, lower_red_2, upper_red_2)
   blue_mask = cv2.inRange(hsv, lower_blue, upper_blue)
   yellow_mask = cv2.inRange(hsv, lower_yellow, upper_yellow)
-
-  # mask = cv2.add(mask1, mask2)
-  # mask = cv2.add(mask, mask3)
 
   getNewPoints(blue_mask, (255,0 , 0))
   getNewPoints(yellow_mask, (0, 255, 255))
@@ -69,7 +70,8 @@ while True:
 
   # maskRedVis = cv2.bitwise_and(frame, frame, mask=mask)
 
-  cv2.imshow('White Board', frame)
+  full = cv2.add(frame, whiteboard)
+  cv2.imshow('White Board', full)
 
   if cv2.waitKey(1) == ord('q'):
     break
